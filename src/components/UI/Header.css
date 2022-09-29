@@ -1,0 +1,23 @@
+.header-block {
+  gap: 1rem;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  align-items: center;
+  background-color: #4b4b4b;
+}
+.header-h2 {
+  color: #3a3a3a;
+  font-size: 1rem;
+  margin: 0 1rem;
+  color: white;
+}
+
+@media (min-width: 580px) {
+  .header-block {
+    align-items: center;
+  }
+  .header-h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+}
