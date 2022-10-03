@@ -13,7 +13,7 @@
   background-color: #2a2a2a;
   border: 1px solid #ececec;
   padding: 0.5rem;
-  border-radius: 12px;    
+  border-radius: 12px;
 }
 .project-item__customer {
   font-size: 1rem;
@@ -41,6 +41,13 @@
   margin: 0 1rem;
   color: white;
 }
+.project-item label {
+  color: #3a3a3a;
+  font-size: 1rem;
+  flex: 1;
+  margin: 0 1rem;
+  color: white;
+}
 
 @media (min-width: 580px) {
   .project-item__description {
@@ -58,4 +65,21 @@
     font-size: 1.25rem;
     padding: 0.5rem 1.5rem;
   }
+}
+
+.project-item.barbie {
+  background-color: #f673e4;
+}
+.project-year.barbie {
+  background-color: #f62ada;
+}
+.project-item__customer.barbie {
+  background-color: #a907a4;
+}
+
+.project-item.barbie h2 {
+  color: #fa09a6;
+}
+.project-item.barbie label {
+  color: #fa09a6;
 }
