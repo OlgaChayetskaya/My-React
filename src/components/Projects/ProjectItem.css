@@ -1,6 +1,6 @@
 .project-item {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
   padding: 0.5rem;
   margin: 1rem 0;
@@ -14,6 +14,7 @@
   border: 1px solid #ececec;
   padding: 0.5rem;
   border-radius: 12px;
+  justify-content: flex-end;
 }
 .project-item__customer {
   font-size: 1rem;
@@ -23,6 +24,7 @@
   border: 1px solid white;
   padding: 0.5rem;
   border-radius: 12px;
+  justify-content: flex-end;
 }
 .project-item__description {
   display: flex;
@@ -41,12 +43,14 @@
   margin: 0 1rem;
   color: white;
 }
+
 .project-item label {
   color: #3a3a3a;
   font-size: 1rem;
   flex: 1;
   margin: 0 1rem;
   color: white;
+  justify-content:end;
 }
 
 @media (min-width: 580px) {
