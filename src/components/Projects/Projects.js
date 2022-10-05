@@ -1,15 +1,19 @@
+import React, { useState } from "react";
+
 import ProjectItem from "./ProjectItem";
-import "./Projects.css";
 import Card from "../UI/Card";
+
+import "./Projects.css";
 
 function Projects(props) {
   return (
     <div className="projects">
       <Card className="project-item">
-        <div className="projects-h2">
+        <div className="project-item__description">
           <h2>List of my Projects</h2>
         </div>
       </Card>
+
       <ProjectItem
         projName={props.items[0].projName}
         customer={props.items[0].customer}
