@@ -1,102 +1,84 @@
 import React, { useState } from "react";
+
 import { BsPencil } from "react-icons/bs";
-import { FiSave } from "react-icons/fi";
-import { GiCancel } from "react-icons/gi";
 
 import Card from "../UI/Card";
+import EditMode from "./EditMode";
 
 import "./ProjectItem.css";
 
-function ProjectItem(props) {
-  const [isChecked, setIsChecked] = useState(false);
+const ProjectItem = (props) => {
+  const [isStyleChBxChecked, setIsStyleChBxChecked] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
   const [currProjName, setCurrProjName] = useState(props.projName);
-  const [updProjName, setUpdProjName] = useState(currProjName);
-
   const [currProjDesc, setCurrProjDesc] = useState(props.projDesc);
-  const [updProjDesc, setUpdProjDesc] = useState(currProjDesc);
 
-  const changeStateHandler = () => {
-    setIsChecked(!isChecked);
-  };
   const changePensilHandler = () => {
     setEditMode(!editMode);
   };
-
-  const changeCancelHandler = () => {
+  const changeStyleChBxHandler = () => {
+    setIsStyleChBxChecked(!isStyleChBxChecked);
+  };
+  const stopEditHandler = (updatedData) => {
     setEditMode(!editMode);
-    setIsChecked(false);
-    setUpdProjName(currProjName);
-    setUpdProjDesc(currProjDesc);
+    setIsStyleChBxChecked(false);
+    setCurrProjName(updatedData.projName);
+    setCurrProjDesc(updatedData.projDesc);
   };
-  const changeSaveHandler = () => {
-    setEditMode(!editMode);
-    setIsChecked(false);
-    setCurrProjName(updProjName);
-    setCurrProjDesc(updProjDesc);
-  };
-
-  const changeProjNameHandler = (event) => {
-    setUpdProjName(event.target.value);
-  };
-  const changeProjDescHandler = (event) => {
-    setUpdProjDesc(event.target.value);
-  };
-
   return (
-    <Card className={`project-item ${isChecked && !editMode ? "barbie" : ""}`}>
-      <Card className="project-item_header">
-        <div
-          className={`project-item__description ${
-            isChecked && !editMode ? "barbie" : ""
-          }`}
-        >
-          <div
-            className={`project-item__customer ${
-              isChecked && !editMode ? "barbie" : ""
-            }`}
-          >
-            {props.customer}
-          </div>
-          {!editMode && <h2>{currProjName} 'Orig'</h2>}
-          {editMode && (
-            <input type="text" value={updProjName} onChange={changeProjNameHandler} />
-          )}
-          <div
-            className={`project-year ${isChecked && !editMode ? "barbie" : ""}`}
-          >
-            {props.year}
-          </div>
-          {!editMode && (
-            <div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={changeStateHandler}
-                />
-                Barbie style
-              </label>
-              <BsPencil color="white" onClick={changePensilHandler} />
+    <div>
+      {!editMode && (
+        <Card className={`project-item ${isStyleChBxChecked ? "barbie" : ""}`}>
+          <Card className="project-item_header">
+            <div
+              className={`project-item__description ${
+                isStyleChBxChecked ? "barbie" : ""
+              }`}
+            >
+              <div
+                className={`project-item__customer ${
+                  isStyleChBxChecked ? "barbie" : ""
+                }`}
+              >
+                {props.customer}
+              </div>
+              <h2>{currProjName}</h2>
+              <div
+                className={`project-year ${isStyleChBxChecked ? "barbie" : ""}`}
+              >
+                {props.year}
+              </div>
+
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isStyleChBxChecked}
+                    onChange={changeStyleChBxHandler}
+                  />
+                  Barbie style
+                </label>
+                <BsPencil color="white" onClick={changePensilHandler} />
+              </div>
             </div>
-          )}
-          {editMode && (
-            <div>
-              <FiSave color="white" onClick={changeSaveHandler} />
-              <GiCancel color="white" onClick={changeCancelHandler} />
-            </div>
-          )}
-        </div>
-      </Card>
-      <Card className="project-item_body">
-        {!editMode && <p>{currProjDesc}</p>}
-        {editMode && (
-          <input type="text" value={updProjDesc} onChange={changeProjDescHandler} />
-        )}
-      </Card>
-    </Card>
+          </Card>
+          <Card className="project-item_body">
+            <p>{currProjDesc}</p>
+          </Card>
+        </Card>
+      )}
+      {editMode && (
+        <EditMode
+          onStopEdit={stopEditHandler}
+          projName={currProjName}
+          customer={props.customer}
+          year={props.year}
+          projDesc={currProjDesc}
+        />
+      )}
+    </div>
   );
-}
+  
+};
 
 export default ProjectItem;
