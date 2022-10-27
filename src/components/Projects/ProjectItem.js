@@ -1,37 +1,84 @@
 import React, { useState } from "react";
 
+import { BsPencil } from "react-icons/bs";
+
 import Card from "../UI/Card";
+import EditMode from "./EditMode";
 
 import "./ProjectItem.css";
 
-function ProjectItem(props) {
-  const [isChecked, setIsChecked] = useState(false);
+const ProjectItem = (props) => {
+  const [isStyleChBxChecked, setIsStyleChBxChecked] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [currProjName, setCurrProjName] = useState(props.projName);
+  const [currProjDesc, setCurrProjDesc] = useState(props.projDesc);
 
-  const changeStateHandler = (event) => {
-    setIsChecked(!isChecked);
-    return;
+  const changePensilHandler = () => {
+    setEditMode(!editMode);
+  };
+  const changeStyleChBxHandler = () => {
+    setIsStyleChBxChecked(!isStyleChBxChecked);
+  };
+  const stopEditHandler = (updatedData) => {
+    setEditMode(!editMode);
+    setIsStyleChBxChecked(false);
+    setCurrProjName(updatedData.projName);
+    setCurrProjDesc(updatedData.projDesc);
   };
   return (
-    <Card className={`project-item ${isChecked ? "barbie" : ""}`}>
-      <div className={`project-item__description ${isChecked ? "barbie" : ""}`}>
-        <h2>{props.projName}</h2>
-        <div className={`project-year ${isChecked ? "barbie" : ""}`}>
-          {props.year}
-        </div>
-        <div className={`project-item__customer ${isChecked ? "barbie" : ""}`}>
-          {props.customer}
-        </div>
-        <label>
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={changeStateHandler}
-          />
-          Barbie style
-        </label>
-      </div>
-    </Card>
+    <div>
+      {!editMode && (
+        <Card className={`project-item ${isStyleChBxChecked ? "barbie" : ""}`}>
+          <Card className="project-item_header">
+            <div
+              className={`project-item__description ${
+                isStyleChBxChecked ? "barbie" : ""
+              }`}
+            >
+              <div
+                className={`project-item__customer ${
+                  isStyleChBxChecked ? "barbie" : ""
+                }`}
+              >
+                {props.customer}
+              </div>
+              <h2>{currProjName}</h2>
+              <div
+                className={`project-year ${isStyleChBxChecked ? "barbie" : ""}`}
+              >
+                {props.year}
+              </div>
+
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isStyleChBxChecked}
+                    onChange={changeStyleChBxHandler}
+                  />
+                  Barbie style
+                </label>
+                <BsPencil color="white" onClick={changePensilHandler} />
+              </div>
+            </div>
+          </Card>
+          <Card className="project-item_body">
+            <p>{currProjDesc}</p>
+          </Card>
+        </Card>
+      )}
+      {editMode && (
+        <EditMode
+          onStopEdit={stopEditHandler}
+          projName={currProjName}
+          customer={props.customer}
+          year={props.year}
+          projDesc={currProjDesc}
+        />
+      )}
+    </div>
   );
-}
+  
+};
 
 export default ProjectItem;
