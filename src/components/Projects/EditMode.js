@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FiSave } from "react-icons/fi";
 import { GiCancel } from "react-icons/gi";
@@ -10,6 +10,16 @@ import "./ProjectItem.css";
 const EditMode = (props) => {
   const [updProjName, setUpdProjName] = useState(props.projName);
   const [updProjDesc, setUpdProjDesc] = useState(props.projDesc);
+
+  useEffect(() => {
+    if (props.readModeState) {
+      const updatedData = {
+        projName: props.projName,
+        projDesc: props.projDesc,
+      };
+      props.onStopEdit(updatedData);
+    }
+  }, [props.readModeState]);
 
   const changeProjNameHandler = (event) => {
     setUpdProjName(event.target.value);
@@ -23,14 +33,14 @@ const EditMode = (props) => {
       projName: updProjName,
       projDesc: updProjDesc,
     };
-    props.onStopEdit(updatedData);    
+    props.onStopEdit(updatedData);
   };
   const changeCancelHandler = () => {
     const updatedData = {
       projName: props.projName,
       projDesc: props.projDesc,
     };
-    props.onStopEdit(updatedData);    
+    props.onStopEdit(updatedData);
   };
 
   return (
