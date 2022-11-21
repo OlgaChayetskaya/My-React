@@ -9,12 +9,12 @@ import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
   const [isStyleChBxChecked, setIsStyleChBxChecked] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(props.editModeState);
   const [currProjName, setCurrProjName] = useState(props.projName);
   const [currProjDesc, setCurrProjDesc] = useState(props.projDesc);
 
   const changePensilHandler = () => {
-    setEditMode(!editMode);
+    setEditMode(!props.readModeState);
   };
   const changeStyleChBxHandler = () => {
     setIsStyleChBxChecked(!isStyleChBxChecked);
@@ -27,7 +27,7 @@ const ProjectItem = (props) => {
   };
   return (
     <div>
-      {!editMode && (
+      {!editMode &&  (
         <Card className={`project-item ${isStyleChBxChecked ? "barbie" : ""}`}>
           <Card className="project-item_header">
             <div
@@ -58,7 +58,7 @@ const ProjectItem = (props) => {
                   />
                   Barbie style
                 </label>
-                <BsPencil color="white" onClick={changePensilHandler} />
+                {!props.readModeState && (<BsPencil color="white" onClick={changePensilHandler} />)}
               </div>
             </div>
           </Card>
@@ -74,6 +74,7 @@ const ProjectItem = (props) => {
           customer={props.customer}
           year={props.year}
           projDesc={currProjDesc}
+          readModeState={props.readModeState}
         />
       )}
     </div>
