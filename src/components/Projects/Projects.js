@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CheckBox from "../UI/CheckBox";
 
 import ProjectItem from "./ProjectItem";
 import Card from "../UI/Card";
@@ -12,16 +13,14 @@ const Projects = (props) => {
   };
   return (
     <div className="projects">
-      <Card className="project-item">
+      <Card className="projects__caption">
         <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={readMode}
-              onChange={readModeHandler}
-            />
-            Read mode only!
-          </label>
+          <CheckBox
+            type="checkbox"
+            checked={readMode}
+            onChange={readModeHandler}            
+          />
+          <label>Read mode only! </label>
         </div>
       </Card>
       {props.items.map((project) => (
