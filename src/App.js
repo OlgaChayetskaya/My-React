@@ -1,7 +1,7 @@
 //import logo from './logo.svg';
 //import "./App.css";
 import React from "react";
-import Header from "./components/UI/Header";
+import Header from "./components/Layout/Header";
 import Projects from "./components/Projects/Projects";
 
 const App = () => {
@@ -66,8 +66,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Header />
-      
+      <Header />      
       <Projects items={projects} />
     </React.Fragment>
   );

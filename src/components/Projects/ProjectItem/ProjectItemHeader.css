@@ -9,6 +9,8 @@
 .project-item_header {
   flex-direction: row;
 }
+
+
 .project-item_header input {
   flex: 1;
 }
@@ -87,6 +89,7 @@
 .project-item.barbie {
   background-color: #f673e4;
 }
+
 .project-year.barbie {
   background-color: #f62ada;
 }

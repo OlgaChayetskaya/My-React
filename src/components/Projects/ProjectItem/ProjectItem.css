@@ -1,0 +1,12 @@
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  background-color: #4b4b4b;
+  flex-direction: column;
+}
+
+.project-item.barbie {
+  background-color: #f673e4;
+}
