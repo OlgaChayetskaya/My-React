@@ -13,11 +13,7 @@ const EditMode = (props) => {
 
   useEffect(() => {
     if (props.readModeState) {
-      const updatedData = {
-        projName: props.projName,
-        projDesc: props.projDesc,
-      };
-      props.onStopEdit(updatedData);
+      props.onStopEdit(props.projName, props.projDesc);
     }
   }, [props.readModeState]);
 
@@ -29,18 +25,10 @@ const EditMode = (props) => {
   };
 
   const changeSaveHandler = () => {
-    const updatedData = {
-      projName: updProjName,
-      projDesc: updProjDesc,
-    };
-    props.onStopEdit(updatedData);
+    props.onStopEdit(updProjName, updProjDesc);
   };
   const changeCancelHandler = () => {
-    const updatedData = {
-      projName: props.projName,
-      projDesc: props.projDesc,
-    };
-    props.onStopEdit(updatedData);
+    props.onStopEdit(props.projName, props.projDesc);
   };
 
   return (

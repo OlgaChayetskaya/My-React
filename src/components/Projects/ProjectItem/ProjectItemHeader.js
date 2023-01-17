@@ -5,7 +5,7 @@ import "./ProjectItemHeader.css";
 
 const ProjectItemHeader = (props) => {
   const changeStyleClickHandler = () => {
-    props.onChangeStyle(props.isStyleChBxChecked);
+    props.onChangeStyle(!props.isStyleChBxChecked);
   };
   const pensilChangeClickHandler = () => {
     props.onPensilChange(props.readModeState);
@@ -40,6 +40,7 @@ const ProjectItemHeader = (props) => {
             />
             Barbie style
           </label>
+          {/* Only when ReadMode is OFF */}
           {!props.readModeState && (
             <BsPencil color="white" onClick={pensilChangeClickHandler} />
           )}
