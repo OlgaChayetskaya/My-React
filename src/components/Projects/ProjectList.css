@@ -1,3 +1,6 @@
+.project-list {
+  padding-inline-start: 0;
+}
 .projects {
   padding: 1rem;
   background-color: rgb(31, 31, 31);
@@ -13,6 +16,7 @@
   padding: 0.5rem;
   margin: 1rem 0;
   background-color: #4b4b4b;
-  color:white;
+  color: white;
   flex-direction: column;
+  text-align: center;
 }
