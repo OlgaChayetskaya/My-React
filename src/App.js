@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "./components/Layout/Header";
-import Projects from "./components/Projects/Projects";
+import ProjectList from "./components/Projects/ProjectList";
 
 const projects = [
   {
@@ -71,8 +71,7 @@ const projects = [
 const App = () => {
   const [myProjList, setMyProjList] = useState(projects);
   const [readModeState, setReadModeState] = useState(true);
-  const [deleteButtonClick, setDeleteButtonClick] = useState(false);
-
+  
   const readModeChangeHandler = (receivedReadMode) => {
     setReadModeState(!receivedReadMode);
   };
@@ -114,25 +113,14 @@ const App = () => {
     setMyProjList(styledItems);
   };
 
-  useEffect(() => {
-    if (deleteButtonClick === true) {
-      const filteredProjects = myProjList.filter(
-        (item) => item.styled === false
-      );
-
-      setDeleteButtonClick(false);
-      setMyProjList(filteredProjects);
-    }
-  }, [deleteButtonClick]);
-
-  const deleteHandler = (clicked) => {
-    setDeleteButtonClick(clicked);
+  const deleteHandler = (updProjList) => {
+    setMyProjList(updProjList);
   };
 
   return (
     <React.Fragment>
       <Header />
-      <Projects
+      <ProjectList
         items={myProjList}
         onItemEdit={itemEditHandler}
         readMode={readModeState}
