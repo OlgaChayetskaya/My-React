@@ -2,6 +2,7 @@ import React from "react";
 
 import Card from "../UI/Card";
 import CheckBox from "../UI/CheckBox";
+import "./ReadModeBlock.css";
 
 const ReadModeBlock = (props) => {
   const readModeChBHandler = () => {
@@ -9,7 +10,7 @@ const ReadModeBlock = (props) => {
   };
 
   return (
-    <Card className="projects__caption">
+    <Card className="read-block">
       <div>
         <CheckBox
           type="checkbox"

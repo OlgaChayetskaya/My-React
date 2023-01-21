@@ -1,0 +1,44 @@
+.new-project__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.new-project__control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: white;
+}
+
+.new-project__control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 20rem;
+  max-width: 100%;
+}
+
+.new-project__control-wide label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: white;
+}
+
+.new-project__control-wide input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 40rem;
+  max-width: 100%;
+  display: block;
+}
+
+.new-project__actions {
+  text-align: right;
+}
