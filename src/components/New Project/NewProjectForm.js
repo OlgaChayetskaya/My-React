@@ -28,6 +28,7 @@ const NewProjectForm = (props) => {
       projDesc: newProjDesc,
       customer: newProjCust,
       year: newProjYear,
+      styled: false,
     };
     props.onSaveNewProject(newProject);
   };
