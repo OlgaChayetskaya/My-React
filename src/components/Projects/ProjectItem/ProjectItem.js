@@ -1,11 +1,9 @@
 import React, { Fragment, useState } from "react";
-
 import Card from "../../UI/Card";
 import EditMode from "./EditMode";
-
-import "./ProjectItem.css";
 import ProjectItemBody from "./ProjectItemBody";
 import ProjectItemHeader from "./ProjectItemHeader";
+import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
   const [isStyleChBxChecked, setIsStyleChBxChecked] = useState(false);
@@ -16,7 +14,7 @@ const ProjectItem = (props) => {
   };
   const changeStyleHandler = (updatedState) => {
     setIsStyleChBxChecked(updatedState);
-    props.onItemStyled(props.id, updatedState);    
+    props.onItemStyled(props.id, updatedState);
   };
   const stopEditHandler = (updProjName, updProjDesc) => {
     setEditMode(!editMode);

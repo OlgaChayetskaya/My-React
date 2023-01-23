@@ -72,7 +72,7 @@ const projects = [
 const App = () => {
   const [myProjList, setMyProjList] = useState(projects);
   const [readModeState, setReadModeState] = useState(true);
-  
+
   const readModeChangeHandler = (receivedReadMode) => {
     setReadModeState(!receivedReadMode);
   };
@@ -123,7 +123,6 @@ const App = () => {
     setMyProjList((prevPojects) => {
       return [newProject, ...prevPojects];
     });
-    
   };
 
   return (
