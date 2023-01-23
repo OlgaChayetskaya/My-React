@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "./components/Layout/Header";
+import NewProject from "./components/New Project/NewProject";
 import ProjectList from "./components/Projects/ProjectList";
 
 const projects = [
@@ -113,13 +114,22 @@ const App = () => {
     setMyProjList(styledItems);
   };
 
-  const deleteHandler = (updProjList) => {
-    setMyProjList(updProjList);
+  const deleteHandler = () => {
+    const filteredProjects = myProjList.filter((item) => item.styled === false);
+    setMyProjList(filteredProjects);
+  };
+
+  const addProjectHandler = (newProject) => {
+    setMyProjList((prevPojects) => {
+      return [newProject, ...prevPojects];
+    });
+    
   };
 
   return (
     <React.Fragment>
       <Header />
+      <NewProject onAddProject={addProjectHandler} />
       <ProjectList
         items={myProjList}
         onItemEdit={itemEditHandler}

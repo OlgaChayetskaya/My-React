@@ -6,12 +6,6 @@ import Button from "../UI/Button";
 import "./ProjectList.css";
 
 const ProjectList = (props) => {
-  const deleteHandler = () => {
-    const filteredProjects = props.items.filter(
-      (item) => item.styled === false
-    );
-    props.onItemsDelete(filteredProjects);
-  };
   const projectsList = props.items.map((project) => (
     <ProjectItem
       key={project.id}
@@ -34,10 +28,15 @@ const ProjectList = (props) => {
           readMode={props.readMode}
           onReadModeChange={props.onReadModeChange}
         />
-        <Button type="button" onClick={deleteHandler}>
-          Delete selected cards.
-        </Button>
-        <ul className="project-list">{projectsList}</ul>;
+        <div className="projects-actions">
+          <Button type="button" onClick={props.onItemsDelete}>
+            Delete selected cards.
+          </Button>
+        </div>
+
+        <div>
+          <ul className="project-list">{projectsList}</ul>;
+        </div>
       </Card>
     </Fragment>
   );
