@@ -3,11 +3,14 @@ import ProjectItem from "./ProjectItem/ProjectItem";
 import ReadModeBlock from "../Layout/ReadModeBlock";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
+import withLoadingDelay from "../HOC/withLoadingDelay";
 import "./ProjectList.css";
+
+const ProjectItemWithLoadingDelay = withLoadingDelay(ProjectItem);
 
 const ProjectList = (props) => {
   const projectsList = props.items.map((project) => (
-    <ProjectItem
+    <ProjectItemWithLoadingDelay
       key={project.id}
       id={project.id}
       projName={project.projName}
@@ -21,6 +24,7 @@ const ProjectList = (props) => {
       onItemStyled={props.onItemStyled}
     />
   ));
+
   return (
     <Fragment>
       <Card className="projects">
