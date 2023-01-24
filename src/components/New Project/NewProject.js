@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import NewProjectForm from "./NewProjectForm";
+import ProjectsContext from "../context/projects-context";
 import "./NewProject.css";
 
 const NewProject = (props) => {
   const [isEditing, setIsEditing] = useState(false);
+
+  const projCtx = useContext(ProjectsContext);
+
   const startEditingHandler = () => {
     setIsEditing(true);
   };
   const stopEditingHandler = () => {
     setIsEditing(false);
   };
-  const saveExpenseDateHadler = (enteredNewProject) => {
-    //const newProject = { ...enteredNewProject, id: Math.random().toString() };
+  const saveExpenseDateHandler = (enteredNewProject) => {
     const newProject = { ...enteredNewProject, id: uuidv4() };
-    props.onAddProject(newProject);
+    projCtx.onAddProject(newProject);
     setIsEditing(false);
   };
 
@@ -29,7 +32,7 @@ const NewProject = (props) => {
       )}
       {isEditing && (
         <NewProjectForm
-          onSaveNewProject={saveExpenseDateHadler}
+          onSaveNewProject={saveExpenseDateHandler}
           onCancelNewProject={stopEditingHandler}
         />
       )}

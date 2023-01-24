@@ -2,14 +2,25 @@
   gap: 1rem;
   padding: 0.5rem;
   margin: 1rem 0;
+  display: flex;
+  justify-content: space-around;
   align-items: center;
   background-color: #4b4b4b;
+  color: white;
 }
 .header-h2 {
-  color: #3a3a3a;
   font-size: 1rem;
   margin: 0 1rem;
-  color: white;
+  color: #f673e4;
+}
+
+.header-badge {
+  padding: 0.25rem 1rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  font-weight: bold;
+  color: black;
+  background-color: #f673e4;
 }
 
 @media (min-width: 580px) {
