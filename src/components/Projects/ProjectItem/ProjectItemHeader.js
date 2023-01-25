@@ -4,11 +4,13 @@ import { BsPencil } from "react-icons/bs";
 import "./ProjectItemHeader.css";
 
 const ProjectItemHeader = (props) => {
+  
   const changeStyleClickHandler = () => {
     props.onChangeStyle(!props.isStyleChBxChecked);
   };
   const pensilChangeClickHandler = () => {
     props.onPensilChange(props.readModeState);
+    props.onChangeStyle(false);
   };
 
   return (

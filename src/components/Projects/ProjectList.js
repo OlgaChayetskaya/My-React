@@ -1,15 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import ProjectItem from "./ProjectItem/ProjectItem";
 import ReadModeBlock from "../Layout/ReadModeBlock";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import withLoadingDelay from "../HOC/withLoadingDelay";
+import ProjectsContext from "../context/projects-context";
 import "./ProjectList.css";
 
 const ProjectItemWithLoadingDelay = withLoadingDelay(ProjectItem);
 
 const ProjectList = (props) => {
-  const projectsList = props.items.map((project) => (
+  const projCtx = useContext(ProjectsContext);
+
+  const projectsList = projCtx.items.map((project) => (
     <ProjectItemWithLoadingDelay
       key={project.id}
       id={project.id}
@@ -20,8 +23,6 @@ const ProjectList = (props) => {
       styled={project.styled}
       editModeState={false}
       readModeState={props.readMode}
-      onItemEdit={props.onItemEdit}
-      onItemStyled={props.onItemStyled}
     />
   ));
 
@@ -33,7 +34,7 @@ const ProjectList = (props) => {
           onReadModeChange={props.onReadModeChange}
         />
         <div className="projects-actions">
-          <Button type="button" onClick={props.onItemsDelete}>
+          <Button type="button" onClick={projCtx.onItemsDelete}>
             Delete selected cards.
           </Button>
         </div>

@@ -1,25 +1,27 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import Card from "../../UI/Card";
 import EditMode from "./EditMode";
 import ProjectItemBody from "./ProjectItemBody";
 import ProjectItemHeader from "./ProjectItemHeader";
+import ProjectsContext from "../../context/projects-context";
 import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
   const [isStyleChBxChecked, setIsStyleChBxChecked] = useState(false);
-  const [editMode, setEditMode] = useState(false); //useState(props.editModeState);
+  const [editMode, setEditMode] = useState(false);
+
+  const projCtx = useContext(ProjectsContext);
 
   const pensilChangeHandler = (readModeState) => {
     setEditMode(!readModeState);
   };
   const changeStyleHandler = (updatedState) => {
     setIsStyleChBxChecked(updatedState);
-    props.onItemStyled(props.id, updatedState);
+    projCtx.onItemStyled(props.id, updatedState);
   };
   const stopEditHandler = (updProjName, updProjDesc) => {
     setEditMode(!editMode);
-    setIsStyleChBxChecked(false);
-    props.onItemEdit(props.id, updProjName, updProjDesc);
+    projCtx.onItemEdit(props.id, updProjName, updProjDesc);
   };
 
   return (

@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-
+import React, {  useEffect, useState } from "react";
 import { FiSave } from "react-icons/fi";
 import { GiCancel } from "react-icons/gi";
-
 import Card from "../../UI/Card";
 
 import "./ProjectItem.css";
