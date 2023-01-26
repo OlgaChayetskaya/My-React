@@ -39,8 +39,8 @@ const NewProjectForm = (props) => {
         <input
           id="year"
           type="number"
-          min="2008"
-          max="2023"
+          // min="2008"
+          // max="2023"
           step="1"
           value={newProjYear}
           onChange={newProjYearHandler}
