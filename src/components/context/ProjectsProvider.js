@@ -8,22 +8,20 @@ const ProjectsProvider = (props) => {
       "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json"
     );
     const slicedData = response.data.slice(0, 15);
-
     let loadedData = [];
 
-    for (const key in slicedData) {
-      loadedData.push({
-        id: slicedData[key].Number,
-        projName: slicedData[key].Name,
-        projDesc: slicedData[key].About,
-        year: slicedData[key].MaxHP,
-        customer: slicedData[key].Generation,
-        styled: false,
-      });
-    }
+    loadedData = slicedData.map((item) => ({
+      id: item.Number,
+      projName: item.Name,
+      projDesc: item.About,
+      year: item.MaxHP,
+      customer: item.Generation,
+      styled: false,
+    }));
+
     setMyProjList(loadedData);
   };
-  
+
   useEffect(() => {
     fetchDataHandler();
   }, []);
