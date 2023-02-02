@@ -11,7 +11,6 @@ const ProjectItemWithLoadingDelay = withLoadingDelay(ProjectItem);
 
 const ProjectList = (props) => {
   const projCtx = useContext(ProjectsContext);
-
   const projectsList = projCtx.items.map((project) => (
     <ProjectItemWithLoadingDelay
       key={project.id}

@@ -1,26 +1,29 @@
-import React, { useState } from "react";
-import Header from "./components/Layout/Header";
-import NewProject from "./components/New Project/NewProject";
-import ProjectList from "./components/Projects/ProjectList";
-import ProjectsProvider from "./components/context/ProjectsProvider";
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./pages/Error";
+import HomePage, { loader as projectsLoader } from "./pages/Home";
+import RootLayout from "./pages/Root";
+import SignInPage from "./pages/SignIn";
 
-const App = () => {
-  const [readModeState, setReadModeState] = useState(true);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+        errorElement: <ErrorPage />,
+        loader: projectsLoader,
+      },
+      { path: "auth", element: <SignInPage /> },
+    ],
+  },
+]);
 
-  const readModeChangeHandler = (receivedReadMode) => {
-    setReadModeState(!receivedReadMode);
-  };
-
-  return (
-    <ProjectsProvider>
-      <Header />
-      <NewProject />
-      <ProjectList
-        readMode={readModeState}
-        onReadModeChange={readModeChangeHandler}
-      />
-    </ProjectsProvider>
-  );
+const App = (props) => {
+  return <RouterProvider router={router} />;
 };
 
 export default App;

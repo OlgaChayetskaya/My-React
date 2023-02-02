@@ -17,6 +17,16 @@
   color: white;
 }
 
+button:disabled,
+button:focus:disabled,
+button:hover:disabled,
+button:active:disabled {
+  background: #f697ea;
+  border-color: #f697ea;
+  color: #666666;
+  cursor: not-allowed;
+}
+
 .icon {
   width: 1.35rem;
   height: 1.35rem;
