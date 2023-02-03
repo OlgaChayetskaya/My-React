@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 import ProjectsContext from "./projects-context";
 
 const ProjectsProvider = (props) => {
+  
+  console.log("ProjectsProvider Started");
+  
+  const [myProjList, setMyProjList] = useState([]);
+
+  console.log("myProjectsList",myProjList);
+  
   const fetchDataHandler = async () => {
     const response = await axios.get(
       "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json"
@@ -25,8 +32,6 @@ const ProjectsProvider = (props) => {
   useEffect(() => {
     fetchDataHandler();
   }, []);
-
-  const [myProjList, setMyProjList] = useState([]);
 
   const itemEditHandler = (id, updProjName, updProjDesc) => {
     const updatedProjectIndex = myProjList.findIndex((item) => item.id === id);

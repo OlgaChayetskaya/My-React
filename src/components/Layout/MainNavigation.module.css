@@ -1,0 +1,18 @@
+.list {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.5rem;
+  list-style-type: none;
+  margin: 0cm;
+}
+
+.list a {
+  text-decoration: none;
+  color: var(--color-primary-300);
+}
+
+.list a:hover,
+.list a.active {
+  color: var(--color-primary-600);
+  text-decoration: underline;
+}
