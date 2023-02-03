@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProjectsProvider from "./components/context/ProjectsProvider";
 import ErrorPage from "./pages/Error";
 import HomePage, { loader as projectsLoader } from "./pages/Home";
 import RootLayout from "./pages/Root";
@@ -15,7 +16,6 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
         errorElement: <ErrorPage />,
-        loader: projectsLoader,
       },
       { path: "auth", element: <SignInPage /> },
     ],
@@ -23,7 +23,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = (props) => {
-  return <RouterProvider router={router} />;
+  return (
+    <ProjectsProvider>
+      <RouterProvider router={router} />
+    </ProjectsProvider>
+  );
 };
 
 export default App;
