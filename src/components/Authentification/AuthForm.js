@@ -1,105 +1,102 @@
 import React, { useState, useEffect } from "react";
 import { Form, useNavigate } from "react-router-dom";
+import useInput from "../../hooks/use-input";
 import Button from "../UI/Button";
 
 import classes from "./AuthForm.module.css";
 
-const AuthForm = (props) => {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [emailIsValid, setEmailIsValid] = useState();
-  const [pswdIsValid, setPswdIsValid] = useState();
-  const [enteredPswd, setEnteredPswd] = useState("");
-  const [formIsValid, setFormIsValid] = useState(false);
+const pswdValidity = (value) =>
+  /.{8,}/.test(value) &&
+  /(?=.*?[a-z])/.test(value) &&
+  /(?=.*?[0-9])/.test(value);
 
+const isEmail = (value) => value.includes("@");
+
+const AuthForm = (props) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFormIsValid(
-        enteredEmail.includes("@") && enteredPswd.trim().length > 6
-      );
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [enteredEmail, enteredPswd]);
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChange,
+    inputBlurHandler: emailInputBlur,
+    reset: emailInputReset,
+  } = useInput(isEmail);
 
-  const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
-  };
+  const {
+    value: enteredPswd,
+    isValid: enteredPswdIsValid,
+    hasError: pswdInputHasError,
+    valueChangeHandler: pswdChange,
+    inputBlurHandler: pswdInputBlur,
+    reset: pswdInputReset,
+  } = useInput(pswdValidity);
 
-  const pswdChangeHandler = (event) => {
-    setEnteredPswd(event.target.value);
+  let formIsValid = false;
+  if (enteredEmailIsValid && enteredPswdIsValid) {
+    formIsValid = true;
+  }
 
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes("@")
-    );
-  };
-
-  const inputEmailBlurHandler = () => {
-    setEmailIsValid(enteredEmail.includes("@"));
-  };
-
-  const inputPswdBlurHandler = () => {
-    setPswdIsValid(enteredPswd.trim().length > 6);
-  };
-
-  const submitHandler = (event) => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
+    if (!formIsValid) {
+      return;
+    }
+    console.log(" enteredEmail ", enteredEmail, "enteredPswd ", enteredPswd);
 
-    console.log("Email:", enteredEmail, "Password:", enteredPswd);
-
-    setEnteredEmail("");
-    setEnteredPswd("");
+    emailInputReset();
+    pswdInputReset();
 
     navigate("/");
-    //return redirect("/");
   };
+
+  const emailInputClasses = emailInputHasError ? classes.invalid : "";
+  const pswdInputClasses = pswdInputHasError
+    ? "form-control invalid"
+    : "form-control";
 
   return (
     <>
-      <Form method="post" onSubmit={submitHandler} className={classes.form}>
+      <form onSubmit={formSubmitHandler} className={classes.form}>
         <h1>Log in</h1>
-        <div
-          className={`${classes.form} ${
-            emailIsValid === false ? classes.invalid : ""
-          }`}
-        >
+        <div className={emailInputClasses}>
           <label htmlFor="email">Username (E-mail)</label>
           <input
             id="email"
             type="email"
             name="email"
-            onChange={emailChangeHandler}
-            onBlur={inputEmailBlurHandler}
+            onChange={emailChange}
+            onBlur={emailInputBlur}
             value={enteredEmail}
             required
           />
+          {emailInputHasError && (
+            <p className="error-text">Enter valid E-mail!</p>
+          )}
         </div>
-        <div
-          className={`${classes.form} ${
-            pswdIsValid === false ? classes.invalid : ""
-          }`}
-        >
+        <div className={pswdInputClasses}>
           <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             name="password"
-            onChange={pswdChangeHandler}
-            onBlur={inputPswdBlurHandler}
+            onChange={pswdChange}
+            onBlur={pswdInputBlur}
             value={enteredPswd}
             required
           />
+          {pswdInputHasError && (
+            <p className="error-text">Password must not be empty!</p>
+          )}
         </div>
         <div>
           <Button type="submit" disabled={!formIsValid}>
             Login
           </Button>
         </div>
-      </Form>
+      </form>
     </>
   );
 };
-
 export default AuthForm;
