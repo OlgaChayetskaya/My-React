@@ -1,7 +1,7 @@
 .form {
   text-align: left;
   max-width: 40rem;
-  margin: 1rem auto;
+  margin: 2rem auto;
   color: var(--color-primary-300);
 }
 
@@ -11,7 +11,6 @@
   color: white;
   display: block;
   width: 100%;
-  padding: 0.5rem;
 }
 
 .form input,

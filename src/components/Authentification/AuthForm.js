@@ -1,103 +1,74 @@
-import React, { useState, useEffect } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
-
+import Input from "../UI/Input";
 import classes from "./AuthForm.module.css";
 
-const AuthForm = (props) => {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [emailIsValid, setEmailIsValid] = useState();
-  const [pswdIsValid, setPswdIsValid] = useState();
-  const [enteredPswd, setEnteredPswd] = useState("");
-  const [formIsValid, setFormIsValid] = useState(false);
+const pswdValidity = (value) =>
+  /.{8,}/.test(value) &&
+  /(?=.*?[a-z])/.test(value) &&
+  /(?=.*?[0-9])/.test(value);
+
+const emailValidity = (value) => /\S+@\S+\.\S+/.test(value);
+
+const AuthForm = () => {
+  const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
+  const [enteredPswdIsValid, setEnteredPswdIsValid] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFormIsValid(
-        enteredEmail.includes("@") && enteredPswd.trim().length > 6
-      );
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [enteredEmail, enteredPswd]);
-
-  const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
+  const emailValidityHandler = (emailVilidity) => {
+    setEnteredEmailIsValid(emailVilidity);
+    console.log("enteredemailIsValid ", emailVilidity);
   };
 
-  const pswdChangeHandler = (event) => {
-    setEnteredPswd(event.target.value);
-
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes("@")
-    );
+  const pswdValidityHandler = (pswdVilidity) => {
+    setEnteredPswdIsValid(pswdVilidity);
+    console.log("enteredPswdIsValid ", pswdVilidity);
   };
 
-  const inputEmailBlurHandler = () => {
-    setEmailIsValid(enteredEmail.includes("@"));
-  };
+  let formIsValid = false;
+  if (enteredEmailIsValid && enteredPswdIsValid) {
+    formIsValid = true;
+    console.log("form is valid ", formIsValid);
+  }
 
-  const inputPswdBlurHandler = () => {
-    setPswdIsValid(enteredPswd.trim().length > 6);
-  };
-
-  const submitHandler = (event) => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log("Email:", enteredEmail, "Password:", enteredPswd);
-
-    setEnteredEmail("");
-    setEnteredPswd("");
+    if (!formIsValid) {
+      return;
+    }
 
     navigate("/");
-    //return redirect("/");
   };
 
   return (
     <>
-      <Form method="post" onSubmit={submitHandler} className={classes.form}>
+      <form onSubmit={formSubmitHandler} className={classes.form}>
         <h1>Log in</h1>
-        <div
-          className={`${classes.form} ${
-            emailIsValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="email">Username (E-mail)</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onChange={emailChangeHandler}
-            onBlur={inputEmailBlurHandler}
-            value={enteredEmail}
-            required
-          />
-        </div>
-        <div
-          className={`${classes.form} ${
-            pswdIsValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            onChange={pswdChangeHandler}
-            onBlur={inputPswdBlurHandler}
-            value={enteredPswd}
-            required
-          />
-        </div>
-        <div>
+        <Input
+          inputName="email"
+          inputTitle="Username (E-mail)"
+          inputType="email"
+          inputErrorMsg="Enter valid E-mail!"
+          inputValidityFunction={emailValidity}
+          onValidity={emailValidityHandler}
+        />
+        <Input
+          inputName="password"
+          inputTitle="Password"
+          inputType="password"
+          inputErrorMsg="Password must not be empty!(at least 1 char, 1 number and length >=8 symbols)"
+          inputValidityFunction={pswdValidity}
+          onValidity={pswdValidityHandler}
+        />
+        <div className={classes.form}>
           <Button type="submit" disabled={!formIsValid}>
             Login
           </Button>
         </div>
-      </Form>
+      </form>
     </>
   );
 };
