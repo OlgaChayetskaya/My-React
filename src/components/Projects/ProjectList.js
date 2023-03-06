@@ -1,17 +1,21 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import ProjectItem from "./ProjectItem/ProjectItem";
 import ReadModeBlock from "../Layout/ReadModeBlock";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import withLoadingDelay from "../HOC/withLoadingDelay";
-import ProjectsContext from "../context/projects-context";
+import { useDispatch, useSelector } from "react-redux";
+import { projectsActions } from "../../store/projects-slice";
+
 import "./ProjectList.css";
 
 const ProjectItemWithLoadingDelay = withLoadingDelay(ProjectItem);
 
 const ProjectList = (props) => {
-  const projCtx = useContext(ProjectsContext);
-  const projectsList = projCtx.items.map((project) => (
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.projects.items);
+
+  const projectsList = items.map((project) => (
     <ProjectItemWithLoadingDelay
       key={project.id}
       id={project.id}
@@ -25,6 +29,10 @@ const ProjectList = (props) => {
     />
   ));
 
+  const removeProjectsHandler = () => {
+    dispatch(projectsActions.itemsDelete());
+  };
+
   return (
     <Fragment>
       <Card className="projects">
@@ -33,7 +41,7 @@ const ProjectList = (props) => {
           onReadModeChange={props.onReadModeChange}
         />
         <div className="projects-actions">
-          <Button type="button" onClick={projCtx.onItemsDelete}>
+          <Button type="button" onClick={removeProjectsHandler}>
             Delete selected cards.
           </Button>
         </div>

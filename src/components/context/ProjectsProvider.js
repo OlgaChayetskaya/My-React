@@ -1,97 +1,97 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import ProjectsContext from "./projects-context";
+// import axios from "axios";
+// import React, { useState, useEffect } from "react";
+// import ProjectsContext from "./projects-context";
 
-const ProjectsProvider = (props) => {
+// const ProjectsProvider = (props) => {
   
-  console.log("ProjectsProvider Started");
+//   console.log("ProjectsProvider Started");
   
-  const [myProjList, setMyProjList] = useState([]);
+//   const [myProjList, setMyProjList] = useState([]);
 
-  console.log("myProjectsList",myProjList);
+//   console.log("myProjectsList",myProjList);
   
-  const fetchDataHandler = async () => {
-    const response = await axios.get(
-      "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json"
-    );
-    const slicedData = response.data.slice(0, 15);
-    let loadedData = [];
+//   const fetchDataHandler = async () => {
+//     const response = await axios.get(
+//       "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json"
+//     );
+//     const slicedData = response.data.slice(0, 15);
+//     let loadedData = [];
 
-    loadedData = slicedData.map((item) => ({
-      id: item.Number,
-      projName: item.Name,
-      projDesc: item.About,
-      year: item.MaxHP,
-      customer: item.Generation,
-      styled: false,
-    }));
+//     loadedData = slicedData.map((item) => ({
+//       id: item.Number,
+//       projName: item.Name,
+//       projDesc: item.About,
+//       year: item.MaxHP,
+//       customer: item.Generation,
+//       styled: false,
+//     }));
 
-    setMyProjList(loadedData);
-  };
+//     setMyProjList(loadedData);
+//   };
 
-  useEffect(() => {
-    fetchDataHandler();
-  }, []);
+//   useEffect(() => {
+//     fetchDataHandler();
+//   }, []);
 
-  const itemEditHandler = (id, updProjName, updProjDesc) => {
-    const updatedProjectIndex = myProjList.findIndex((item) => item.id === id);
-    const updatedProject = myProjList[updatedProjectIndex];
+//   const itemEditHandler = (id, updProjName, updProjDesc) => {
+//     const updatedProjectIndex = myProjList.findIndex((item) => item.id === id);
+//     const updatedProject = myProjList[updatedProjectIndex];
 
-    let updatedItems;
+//     let updatedItems;
 
-    if (updatedProject) {
-      const updatedItem = {
-        ...updatedProject,
-        projName: updProjName,
-        projDesc: updProjDesc,
-      };
+//     if (updatedProject) {
+//       const updatedItem = {
+//         ...updatedProject,
+//         projName: updProjName,
+//         projDesc: updProjDesc,
+//       };
 
-      updatedItems = [...myProjList];
-      updatedItems[updatedProjectIndex] = updatedItem;
-    }
-    setMyProjList(updatedItems);
-  };
+//       updatedItems = [...myProjList];
+//       updatedItems[updatedProjectIndex] = updatedItem;
+//     }
+//     setMyProjList(updatedItems);
+//   };
 
-  const itemStyledHandler = (id, styledUpd) => {
-    const styledProjectIndex = myProjList.findIndex((item) => item.id === id);
-    const styledProject = myProjList[styledProjectIndex];
+//   const itemStyledHandler = (id, styledUpd) => {
+//     const styledProjectIndex = myProjList.findIndex((item) => item.id === id);
+//     const styledProject = myProjList[styledProjectIndex];
 
-    let styledItems;
+//     let styledItems;
 
-    if (styledProject) {
-      const styledItem = {
-        ...styledProject,
-        styled: styledUpd,
-      };
+//     if (styledProject) {
+//       const styledItem = {
+//         ...styledProject,
+//         styled: styledUpd,
+//       };
 
-      styledItems = [...myProjList];
-      styledItems[styledProjectIndex] = styledItem;
-    }
-    setMyProjList(styledItems);
-  };
+//       styledItems = [...myProjList];
+//       styledItems[styledProjectIndex] = styledItem;
+//     }
+//     setMyProjList(styledItems);
+//   };
 
-  const deleteProjectsHandler = () => {
-    const filteredProjects = myProjList.filter((item) => item.styled === false);
-    setMyProjList(filteredProjects);
-  };
+//   const deleteProjectsHandler = () => {
+//     const filteredProjects = myProjList.filter((item) => item.styled === false);
+//     setMyProjList(filteredProjects);
+//   };
 
-  const addProjectHandler = (newProject) => {
-    setMyProjList((prevPojects) => {
-      return [newProject, ...prevPojects];
-    });
-  };
-  const projectContext = {
-    items: myProjList,
-    onItemEdit: itemEditHandler,
-    onItemStyled: itemStyledHandler,
-    onAddProject: addProjectHandler,
-    onItemsDelete: deleteProjectsHandler,
-  };
-  return (
-    <ProjectsContext.Provider value={projectContext}>
-      {props.children}
-    </ProjectsContext.Provider>
-  );
-};
+//   const addProjectHandler = (newProject) => {
+//     setMyProjList((prevPojects) => {
+//       return [newProject, ...prevPojects];
+//     });
+//   };
+//   const projectContext = {
+//     items: myProjList,
+//     onItemEdit: itemEditHandler,
+//     onItemStyled: itemStyledHandler,
+//     onAddProject: addProjectHandler,
+//     onItemsDelete: deleteProjectsHandler,
+//   };
+//   return (
+//     <ProjectsContext.Provider value={projectContext}>
+//       {props.children}
+//     </ProjectsContext.Provider>
+//   );
+// };
 
-export default ProjectsProvider;
+// export default ProjectsProvider;

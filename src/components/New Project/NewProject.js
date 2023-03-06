@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import NewProjectForm from "./NewProjectForm";
-import ProjectsContext from "../context/projects-context";
+import { useDispatch } from "react-redux";
+import { projectsActions } from "../../store/projects-slice";
 import "./NewProject.css";
 
 const NewProject = (props) => {
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
-
-  const projCtx = useContext(ProjectsContext);
 
   const startEditingHandler = () => {
     setIsEditing(true);
@@ -19,7 +19,7 @@ const NewProject = (props) => {
   };
   const saveExpenseDateHandler = (enteredNewProject) => {
     const newProject = { ...enteredNewProject, id: uuidv4() };
-    projCtx.onAddProject(newProject);
+    dispatch(projectsActions.addProject(newProject));
     setIsEditing(false);
   };
 
