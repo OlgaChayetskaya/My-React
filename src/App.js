@@ -19,16 +19,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        id: "project-detail",
-        children: [
-          {
-            path: "/",
-            element: <HomePage />,
-            errorElement: <ErrorPage />,
-          },
-          { path: "card/:id", element: <ProjectCard /> },
-        ],
+        element: <HomePage />,
+        errorElement: <ErrorPage />,
       },
+      { path: "card/:id", element: <ProjectCard /> },
+
       { path: "auth", element: <SignInPage /> },
     ],
   },
